@@ -52,9 +52,9 @@ __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_INA260.git"
 from micropython import const
 import adafruit_bus_device.i2c_device as i2cdevice
 
-from adafruit_register.i2c_struct import UnaryStruct, ROUnaryStruct
+from adafruit_register.i2c_struct import ROUnaryStruct
 from adafruit_register.i2c_bits import RWBits
-from adafruit_register.i2c_bit import RWBit, ROBit
+from adafruit_register.i2c_bit import ROBit
 
  # pylint: disable=bad-whitespace
 _REG_CONFIG       = const(0x00) # CONFIGURATION REGISTER (R/W)
