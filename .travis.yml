@@ -1,0 +1,48 @@
+# This is a common .travis.yml for generating library release zip files for
+# CircuitPython library releases using circuitpython-build-tools.
+# See https://github.com/adafruit/circuitpython-build-tools for detailed setup
+# instructions.
+
+dist: xenial
+language: python
+python:
+  - "3.6"
+
+cache:
+  pip: true
+
+# TODO: if deployment to PyPi is desired, change 'DEPLOY_PYPI' to "true",
+#       or remove the env block entirely and remove the condition in the
+#       deploy block.
+env:
+  - DEPLOY_PYPI="true"
+
+deploy:
+  - provider: releases
+    api_key: "$GITHUB_TOKEN"
+    file_glob: true
+    file: "$TRAVIS_BUILD_DIR/bundles/*"
+    skip_cleanup: true
+    overwrite: true
+    on:
+      tags: true
+  # TODO: Use 'travis encrypt --com -r adafruit/<repo slug>' to generate
+  #       the encrypted password for adafruit-travis. Paste result below.
+  - provider: pypi
+    user: adafruit-travis
+    password:
+      secure: nwXtNjo4AHLboawu2ftT2bxKNAP7rY2qI23dLTwYx3CkHk8Q3efi7ia8wsurWH5mY95mRwGcm9s/sRJkZVznV61KigS10XAHnBdswCT3GmYyJO0VfvSxrJ9y0n3ARCoO9FMNq2zC3g+S5r1Xw+/zGmHmsquzMpY6jzpjvVo+827rWlsz0B+dvybKI2MDe2j8MJJbCGv62A9DY4PEni39xgDjCGXeS8t3A5jNBCdvLuLzD8TF68sVooroCNzi/XGWqqVzv8ITtMSK9foD6h//BRsP1zdhpqoIXgzM9a61hk3bYJkfcy348uvIyvZsu1MTKn0UlGuBMXOOyCvllP620t0zWrB/ZD4sqJPuoJgFbdSY905U1563ynJDv/QBRQhPsF4NNh6a0ZiG8Csuq68AJK54A3ofaWeTBoK6FjaUcDHKN0KqxuwxHpRmlIPIQqYJuJmwwyQ1P63mRm+4G10Q0hPpPy8mKMk/oPYE4LyQYiqVOCMCtvUw7Y3ea+WK3N2BSnLwD53/feuIUf8S9t4bxC3qZdSsVz+JDea0FHLERsSdy/9sxzRgpjNpUs1QNJyY689bBrpHkNsCnwI5DJPIJu/a+Dz0tgrbx4Nt9eqU15SrgwxOIt/goQ5PJBrp4U8+/9AdYEiirZlFbS5/0QcRxpqqHwWMJgHh5Lksma7jSBk=
+    on:
+      tags: true
+      condition: $DEPLOY_PYPI = "true"
+
+install:
+  - pip install -r requirements.txt
+  - pip install circuitpython-build-tools Sphinx sphinx-rtd-theme
+  - pip install --force-reinstall pylint==1.9.2
+
+script:
+  - pylint adafruit_ina260.py
+  - ([[ ! -d "examples" ]] || pylint --disable=missing-docstring,invalid-name,bad-whitespace examples/*.py)
+  - circuitpython-build-bundles --filename_prefix adafruit-circuitpython-ina260 --library_location .
+  - cd docs && sphinx-build -E -W -b html . _build/html && cd ..
