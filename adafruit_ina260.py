@@ -200,11 +200,11 @@ class INA260:
 
     @property
     def voltage(self):
-        """The bus voltage (between V- and GND) in mV"""
+        """The bus voltage in V"""
         if self.mode == Mode.TRIGGERED:
             while self._conversion_ready == 0:
                 pass
-        return self._raw_voltage * 1.25
+        return self._raw_voltage * 0.00125
 
     @property
     def power(self):
