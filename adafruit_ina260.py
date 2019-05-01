@@ -33,7 +33,7 @@ Implementation Notes
 
 **Hardware:**
 
-* `INA260 Breakout <https://www.adafruit.com/products>`_
+* `INA260 Breakout <https://www.adafruit.com/products/4226>`_
 
 **Software and Dependencies:**
 
