@@ -6,6 +6,7 @@ https://github.com/pypa/sampleproject
 """
 
 from setuptools import setup, find_packages
+
 # To use a consistent encoding
 from codecs import open
 from os import path
@@ -13,53 +14,44 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(here, "README.rst"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name='adafruit-circuitpython-ina260',
-
+    name="adafruit-circuitpython-ina260",
     use_scm_version=True,
-    setup_requires=['setuptools_scm'],
-
-    description='CircuitPython driver for the TI INA260 current and power sensor',
+    setup_requires=["setuptools_scm"],
+    description="CircuitPython driver for the TI INA260 current and power sensor",
     long_description=long_description,
-    long_description_content_type='text/x-rst',
-
+    long_description_content_type="text/x-rst",
     # The project's main homepage.
-    url='https://github.com/adafruit/Adafruit_CircuitPython_INA260',
-
+    url="https://github.com/adafruit/Adafruit_CircuitPython_INA260",
     # Author details
-    author='Adafruit Industries',
-    author_email='circuitpython@adafruit.com',
-
+    author="Adafruit Industries",
+    author_email="circuitpython@adafruit.com",
     install_requires=[
-        'Adafruit-Blinka',
-        'adafruit-circuitpython-busdevice',
-        'adafruit-circuitpython-register'
+        "Adafruit-Blinka",
+        "adafruit-circuitpython-busdevice",
+        "adafruit-circuitpython-register",
     ],
-
     # Choose your license
-    license='MIT',
-
+    license="MIT",
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
-        'Development Status :: 3 - Alpha',
-        'Intended Audience :: Developers',
-        'Topic :: Software Development :: Libraries',
-        'Topic :: System :: Hardware',
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: System :: Hardware",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
     ],
-
     # What does your project relate to?
-    keywords='adafruit blinka circuitpython micropython ina260 power current voltage',
-
+    keywords="adafruit blinka circuitpython micropython ina260 power current voltage",
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
     # TODO: IF LIBRARY FILES ARE A PACKAGE FOLDER,
     #       CHANGE `py_modules=['...']` TO `packages=['...']`
-    py_modules=['adafruit_ina260'],
+    py_modules=["adafruit_ina260"],
 )
