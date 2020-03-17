@@ -8,9 +8,9 @@ ina260 = INA260(i2c)
 # Raise the averaging count to a larger number to smooth out the results
 ina260.averaging_count = AveragingCount.COUNT_4
 while True:
-    print("Current (average count 4): %.2f"%(ina260.current))
-    print("Voltage (average count 4): %.2f"%(ina260.voltage))
-    print("Power   (average count 4): %.2f"%(ina260.power))
+    print("Current (average count 4): %.2f" % (ina260.current))
+    print("Voltage (average count 4): %.2f" % (ina260.voltage))
+    print("Power   (average count 4): %.2f" % (ina260.power))
 
     time.sleep(1)
 

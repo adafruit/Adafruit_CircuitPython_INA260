@@ -56,15 +56,15 @@ from adafruit_register.i2c_struct import ROUnaryStruct
 from adafruit_register.i2c_bits import RWBits
 from adafruit_register.i2c_bit import ROBit
 
- # pylint: disable=bad-whitespace
-_REG_CONFIG       = const(0x00) # CONFIGURATION REGISTER (R/W)
-_REG_CURRENT      = const(0x01) # SHUNT VOLTAGE REGISTER (R)
-_REG_BUSVOLTAGE   = const(0x02) # BUS VOLTAGE REGISTER (R)
-_REG_POWER        = const(0x03) # POWER REGISTER (R)
-_REG_MASK_ENABLE  = const(0x06) # MASK ENABLE REGISTER (R/W)
-_REG_ALERT_LIMIT  = const(0x07) # ALERT LIMIT REGISTER (R/W)
-_REG_MFG_UID      = const(0xFE) # MANUFACTURER UNIQUE ID REGISTER (R)
-_REG_DIE_UID      = const(0xFF)# DIE UNIQUE ID REGISTER (R)
+# pylint: disable=bad-whitespace
+_REG_CONFIG = const(0x00)  # CONFIGURATION REGISTER (R/W)
+_REG_CURRENT = const(0x01)  # SHUNT VOLTAGE REGISTER (R)
+_REG_BUSVOLTAGE = const(0x02)  # BUS VOLTAGE REGISTER (R)
+_REG_POWER = const(0x03)  # POWER REGISTER (R)
+_REG_MASK_ENABLE = const(0x06)  # MASK ENABLE REGISTER (R/W)
+_REG_ALERT_LIMIT = const(0x07)  # ALERT LIMIT REGISTER (R/W)
+_REG_MFG_UID = const(0xFE)  # MANUFACTURER UNIQUE ID REGISTER (R)
+_REG_DIE_UID = const(0xFF)  # DIE UNIQUE ID REGISTER (R)
 
 # pylint: disable=too-few-public-methods
 class Mode:
@@ -86,9 +86,11 @@ class Mode:
         +--------------------+---------------------------------------------------------------------+
 
     """
-    SHUTDOWN   = const(0x0)
-    TRIGGERED  = const(0x3)
+
+    SHUTDOWN = const(0x0)
+    TRIGGERED = const(0x3)
     CONTINUOUS = const(0x7)
+
 
 class ConversionTime:
     """Options for ``current_conversion_time`` or ``voltage_conversion_time``
@@ -114,14 +116,16 @@ class ConversionTime:
         +----------------------------------+------------------+
 
     """
-    TIME_140_us   = const(0x0)
-    TIME_204_us   = const(0x1)
-    TIME_332_us   = const(0x2)
-    TIME_558_us   = const(0x3)
-    TIME_1_1_ms   = const(0x4)
+
+    TIME_140_us = const(0x0)
+    TIME_204_us = const(0x1)
+    TIME_332_us = const(0x2)
+    TIME_558_us = const(0x3)
+    TIME_1_1_ms = const(0x4)
     TIME_2_116_ms = const(0x5)
     TIME_4_156_ms = const(0x6)
     TIME_8_244_ms = const(0x7)
+
 
 class AveragingCount:
     """Options for ``averaging_count``
@@ -147,16 +151,20 @@ class AveragingCount:
         +-------------------------------+------------------------------------+
 
     """
-    COUNT_1    = const(0x1)
-    COUNT_4    = const(0x2)
-    COUNT_16   = const(0x3)
-    COUNT_64   = const(0x4)
-    COUNT_128  = const(0x5)
-    COUNT_256  = const(0x6)
-    COUNT_512  = const(0x7)
+
+    COUNT_1 = const(0x1)
+    COUNT_4 = const(0x2)
+    COUNT_16 = const(0x3)
+    COUNT_64 = const(0x4)
+    COUNT_128 = const(0x5)
+    COUNT_256 = const(0x6)
+    COUNT_512 = const(0x7)
     COUNT_1024 = const(0x8)
+
+
 # pylint: enable=bad-whitespace
 # pylint: enable=too-few-public-methods
+
 
 class INA260:
     """Driver for the INA260 power and current sensor.
