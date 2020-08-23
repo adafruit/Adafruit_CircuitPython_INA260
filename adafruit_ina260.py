@@ -56,7 +56,6 @@ from adafruit_register.i2c_struct import ROUnaryStruct
 from adafruit_register.i2c_bits import RWBits
 from adafruit_register.i2c_bit import ROBit
 
-# pylint: disable=bad-whitespace
 _REG_CONFIG = const(0x00)  # CONFIGURATION REGISTER (R/W)
 _REG_CURRENT = const(0x01)  # SHUNT VOLTAGE REGISTER (R)
 _REG_BUSVOLTAGE = const(0x02)  # BUS VOLTAGE REGISTER (R)
@@ -162,7 +161,6 @@ class AveragingCount:
     COUNT_1024 = const(0x8)
 
 
-# pylint: enable=bad-whitespace
 # pylint: enable=too-few-public-methods
 
 
