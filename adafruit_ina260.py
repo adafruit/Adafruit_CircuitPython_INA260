@@ -151,14 +151,14 @@ class AveragingCount:
 
     """
 
-    COUNT_1 = const(0x1)
-    COUNT_4 = const(0x2)
-    COUNT_16 = const(0x3)
-    COUNT_64 = const(0x4)
-    COUNT_128 = const(0x5)
-    COUNT_256 = const(0x6)
-    COUNT_512 = const(0x7)
-    COUNT_1024 = const(0x8)
+    COUNT_1 = const(0x0)
+    COUNT_4 = const(0x1)
+    COUNT_16 = const(0x2)
+    COUNT_64 = const(0x3)
+    COUNT_128 = const(0x4)
+    COUNT_256 = const(0x5)
+    COUNT_512 = const(0x6)
+    COUNT_1024 = const(0x7)
 
 
 # pylint: enable=too-few-public-methods
