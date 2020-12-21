@@ -161,8 +161,20 @@ class INA260:
     _raw_current = ROUnaryStruct(_REG_CURRENT, ">h")
     _raw_voltage = ROUnaryStruct(_REG_BUSVOLTAGE, ">H")
     _raw_power = ROUnaryStruct(_REG_POWER, ">H")
-
-    _conversion_ready = ROBit(_REG_MASK_ENABLE, 3, 2, False)
+    
+    # MASK_ENABLE fields
+    overcurrent_limit = RWBit(_REG_MASK_ENABLE, 15, 2, False)
+    under_current_limit = RWBit(_REG_MASK_ENABLE, 14, 2, False)
+    bus_voltage_over_voltage = RWBit(_REG_MASK_ENABLE, 13, 2, False)
+    bus_voltage_under_voltage = RWBit(_REG_MASK_ENABLE, 12, 2, False)
+    power_over_limit = RWBit(_REG_MASK_ENABLE, 11, 2, False)
+    conversion_ready = RWBit(_REG_MASK_ENABLE, 10, 2, False)
+    # from 5 to 9 are not used
+    alert_function_flag = ROBit(_REG_MASK_ENABLE, 4, 2, False)
+    _conversion_ready_flag = ROBit(_REG_MASK_ENABLE, 3, 2, False)
+    math_overflow_flag = ROBit(_REG_MASK_ENABLE, 2, 2, False)
+    alert_polarity_bit = RWBit(_REG_MASK_ENABLE, 1, 2, False)
+    alert_latch_enable = RWBit(_REG_MASK_ENABLE, 0, 2, False)    
 
     averaging_count = RWBits(3, _REG_CONFIG, 9, 2, False)
     """The window size of the rolling average used in continuous mode"""
@@ -178,12 +190,16 @@ class INA260:
 
     mask_enable = RWBits(16, _REG_MASK_ENABLE, 0, 2, False)
     alert_limit = RWBits(16, _REG_ALERT_LIMIT, 0, 2, False)
+    
+    manufacturer_id = ROUnaryStruct(_REG_MFG_UID, ">H")
+    device_id = ROBits(12, _REG_DIE_UID, 4, 2, False)
+    revision_id = ROBits(4, _REG_DIE_UID, 0, 2, False)
 
     @property
     def current(self):
         """The current (between V+ and V-) in mA"""
         if self.mode == Mode.TRIGGERED:
-            while self._conversion_ready == 0:
+            while self._conversion_ready_flag == 0:
                 pass
         return self._raw_current * 1.25
 
@@ -191,7 +207,7 @@ class INA260:
     def voltage(self):
         """The bus voltage in V"""
         if self.mode == Mode.TRIGGERED:
-            while self._conversion_ready == 0:
+            while self._conversion_ready_flag == 0:
                 pass
         return self._raw_voltage * 0.00125
 
@@ -199,6 +215,6 @@ class INA260:
     def power(self):
         """The power being delivered to the load in mW"""
         if self.mode == Mode.TRIGGERED:
-            while self._conversion_ready == 0:
+            while self._conversion_ready_flag == 0:
                 pass
         return self._raw_power * 10
