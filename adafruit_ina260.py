@@ -186,6 +186,8 @@ class INA260:
     alert_polarity_bit = RWBit(_REG_MASK_ENABLE, 1, 2, False)
     alert_latch_enable = RWBit(_REG_MASK_ENABLE, 0, 2, False)    
 
+    reset_bit = RWBit(_REG_CONFIG, 15, 2, False)
+    """Setting this bit t 1 generates a system reset. Reset all registers to default values."""
     averaging_count = RWBits(3, _REG_CONFIG, 9, 2, False)
     """The window size of the rolling average used in continuous mode"""
     voltage_conversion_time = RWBits(3, _REG_CONFIG, 6, 2, False)
