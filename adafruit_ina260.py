@@ -5,24 +5,15 @@
 """
 `adafruit_ina260`
 ================================================================================
-
 CircuitPython driver for the TI INA260 current and power sensor
-
-
 * Author(s): Bryan Siepert
-
 Implementation Notes
 --------------------
-
 **Hardware:**
-
 * `INA260 Breakout <https://www.adafruit.com/products/4226>`_
-
 **Software and Dependencies:**
-
 * Adafruit CircuitPython firmware for the supported boards:
   https://github.com/adafruit/circuitpython/releases
-
  * Adafruit's Bus Device library: https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
  * Adafruit's Register library: https://github.com/adafruit/Adafruit_CircuitPython_Register
 """
@@ -48,10 +39,10 @@ _REG_ALERT_LIMIT = const(0x07)  # ALERT LIMIT REGISTER (R/W)
 _REG_MFG_UID = const(0xFE)  # MANUFACTURER UNIQUE ID REGISTER (R)
 _REG_DIE_UID = const(0xFF)  # DIE UNIQUE ID REGISTER (R)
 
+
 # pylint: disable=too-few-public-methods
 class Mode:
     """Modes avaible to be set
-
     +--------------------+---------------------------------------------------------------------+
     | Mode               | Description                                                         |
     +====================+=====================================================================+
@@ -66,7 +57,6 @@ class Mode:
     | ``Mode.SHUTDOWN``  |  Shutdown the sensor, reducing the quiescent current and turning off|
     |                    |  current into the device inputs. Set another mode to re-enable      |
     +--------------------+---------------------------------------------------------------------+
-
     """
 
     SHUTDOWN = const(0x0)
@@ -76,7 +66,6 @@ class Mode:
 
 class ConversionTime:
     """Options for ``current_conversion_time`` or ``voltage_conversion_time``
-
     +----------------------------------+------------------+
     | ``ConversionTime``               | Time             |
     +==================================+==================+
@@ -96,7 +85,6 @@ class ConversionTime:
     +----------------------------------+------------------+
     | ``ConversionTime.TIME_8_244_ms`` | 8.244 ms         |
     +----------------------------------+------------------+
-
     """
 
     TIME_140_us = const(0x0)
@@ -111,7 +99,6 @@ class ConversionTime:
 
 class AveragingCount:
     """Options for ``averaging_count``
-
     +-------------------------------+------------------------------------+
     | ``AveragingCount``            | Number of measurements to average  |
     +===============================+====================================+
@@ -131,7 +118,6 @@ class AveragingCount:
     +-------------------------------+------------------------------------+
     | ``AveragingCount.COUNT_1024`` | 1024                               |
     +-------------------------------+------------------------------------+
-
     """
 
     COUNT_1 = const(0x0)
@@ -149,10 +135,8 @@ class AveragingCount:
 
 class INA260:
     """Driver for the INA260 power and current sensor.
-
     :param ~busio.I2C i2c_bus: The I2C bus the INA260 is connected to.
     :param address: The I2C device address for the sensor. Default is ``0x40``.
-
     """
 
     def __init__(self, i2c_bus, address=0x40):
@@ -160,18 +144,20 @@ class INA260:
 
         if self._manufacturer_id != self.TEXAS_INSTRUMENT_ID:
             raise RuntimeError(
-                "Failed to find Texas Instrument ID, read {} while expected {} - check your wiring!".format(self._manufacturer_id, self.TEXAS_INSTRUMENT_ID)
+                "Failed to find Texas Instrument ID, read {} while expected {}"
+                " - check your wiring!".format(self._manufacturer_id, self.TEXAS_INSTRUMENT_ID)
             )
-            
+
         if self._device_id != self.INA260_ID:
             raise RuntimeError(
-                "Failed to find INA260 ID, read {} while expected {} - check your wiring!".format(self._device_id, self.INA260_ID)
+                "Failed to find INA260 ID, read {} while expected {}"
+                " - check your wiring!".format(self._device_id, self.INA260_ID)
             )
 
     _raw_current = ROUnaryStruct(_REG_CURRENT, ">h")
     _raw_voltage = ROUnaryStruct(_REG_BUSVOLTAGE, ">H")
     _raw_power = ROUnaryStruct(_REG_POWER, ">H")
-    
+
     # MASK_ENABLE fields
     overcurrent_limit = RWBit(_REG_MASK_ENABLE, 15, 2, False)
     """Setting this bit high configures the ALERT pin to be asserted if the current measurement
@@ -191,28 +177,30 @@ class INA260:
     """
     power_over_limit = RWBit(_REG_MASK_ENABLE, 11, 2, False)
     """Setting this bit high configures the ALERT pin to be asserted if the Power calculation
-       made following a bus voltage measurement exceeds the value programmed in the Alert Limit Register.
+       made following a bus voltage measurement exceeds the value programmed in the
+       Alert Limit Register.
     """
     conversion_ready = RWBit(_REG_MASK_ENABLE, 10, 2, False)
-    """Setting this bit high configures the ALERT pin to be asserted when the Conversion Ready Flag, Bit 3, 
-       is asserted indicating that the device is ready for the next conversion.
+    """Setting this bit high configures the ALERT pin to be asserted when the Conversion Ready Flag,
+        Bit 3, is asserted indicating that the device is ready for the next conversion.
     """
     # from 5 to 9 are not used
     alert_function_flag = ROBit(_REG_MASK_ENABLE, 4, 2, False)
-    """While only one Alert Function can be monitored at the ALERT pin at time, the Conversion Ready can
-       also be enabled to assert the ALERT pin. 
-       Reading the Alert Function Flag following an alert allows the user to determine if the Alert 
+    """While only one Alert Function can be monitored at the ALERT pin at time, the
+       Conversion Ready can also be enabled to assert the ALERT pin.
+       Reading the Alert Function Flag following an alert allows the user to determine if the Alert
        Function was the source of the Alert.
-       
-       When the Alert Latch Enable bit is set to Latch mode, the Alert Function Flag bit clears only when 
-       the Mask/Enable Register is read. 
-       When the Alert Latch Enable bit is set to Transparent mode, the Alert Function Flag bit is cleared 
-       following the next conversion that does not result in an Alert condition.
+
+       When the Alert Latch Enable bit is set to Latch mode, the Alert Function Flag bit
+       clears only when the Mask/Enable Register is read.
+       When the Alert Latch Enable bit is set to Transparent mode, the Alert Function Flag bit
+       is cleared following the next conversion that does not result in an Alert condition.
     """
     _conversion_ready_flag = ROBit(_REG_MASK_ENABLE, 3, 2, False)
-    """Bit to help coordinate one-shot or triggered conversion. This bit is set after all conversion, 
-       averaging, and multiplication are complete. Conversion Ready flag bit clears when writing the 
-       configuration register or reading the Mask/Enable register.
+    """Bit to help coordinate one-shot or triggered conversion. This bit is set after all
+        conversion, averaging, and multiplication are complete.
+        Conversion Ready flag bit clears when writing the configuration register or
+        reading the Mask/Enable register.
     """
     math_overflow_flag = ROBit(_REG_MASK_ENABLE, 2, 2, False)
     """This bit is set to 1 if an arithmetic operation resulted in an overflow error.
@@ -239,14 +227,16 @@ class INA260:
     """
 
     mask_enable = RWBits(16, _REG_MASK_ENABLE, 0, 2, False)
-    """The Mask/Enable Register selects the function that is enabled to control the ALERT pin as well as 
-        how that pin functions. If multiple functions are enabled, the highest significant bit position 
-        Alert Function (D15-D11) takes priority and responds to the Alert Limit Register.
+    """The Mask/Enable Register selects the function that is enabled to control the ALERT pin as
+        well as how that pin functions.
+        If multiple functions are enabled, the highest significant bit
+        position Alert Function (D15-D11) takes priority and responds to the Alert Limit Register.
     """
     alert_limit = RWBits(16, _REG_ALERT_LIMIT, 0, 2, False)
-    """The Alert Limit Register contains the value used to compare to the register selected in the 
-        Mask/Enable Register to determine if a limit has been exceeded. 
-        The format for this register will match the format of the register that is selected for comparison.
+    """The Alert Limit Register contains the value used to compare to the register selected in the
+        Mask/Enable Register to determine if a limit has been exceeded.
+        The format for this register will match the format of the register that is selected for
+        comparison.
     """
 
     TEXAS_INSTRUMENT_ID = const(0x5449)
