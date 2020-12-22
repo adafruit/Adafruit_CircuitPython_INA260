@@ -174,17 +174,55 @@ class INA260:
     
     # MASK_ENABLE fields
     overcurrent_limit = RWBit(_REG_MASK_ENABLE, 15, 2, False)
+    """Setting this bit high configures the ALERT pin to be asserted if the current measurement
+       following a conversion exceeds the value programmed in the Alert Limit Register.
+    """
     under_current_limit = RWBit(_REG_MASK_ENABLE, 14, 2, False)
+    """Setting this bit high configures the ALERT pin to be asserted if the current measurement
+       following a conversion drops below the value programmed in the Alert Limit Register.
+    """
     bus_voltage_over_voltage = RWBit(_REG_MASK_ENABLE, 13, 2, False)
+    """Setting this bit high configures the ALERT pin to be asserted if the bus voltage measurement
+       following a conversion exceeds the value programmed in the Alert Limit Register.
+    """
     bus_voltage_under_voltage = RWBit(_REG_MASK_ENABLE, 12, 2, False)
+    """Setting this bit high configures the ALERT pin to be asserted if the bus voltage measurement
+       following a conversion drops below the value programmed in the Alert Limit Register.
+    """
     power_over_limit = RWBit(_REG_MASK_ENABLE, 11, 2, False)
+    """Setting this bit high configures the ALERT pin to be asserted if the Power calculation
+       made following a bus voltage measurement exceeds the value programmed in the Alert Limit Register.
+    """
     conversion_ready = RWBit(_REG_MASK_ENABLE, 10, 2, False)
+    """Setting this bit high configures the ALERT pin to be asserted when the Conversion Ready Flag, Bit 3, 
+       is asserted indicating that the device is ready for the next conversion.
+    """
     # from 5 to 9 are not used
     alert_function_flag = ROBit(_REG_MASK_ENABLE, 4, 2, False)
+    """While only one Alert Function can be monitored at the ALERT pin at time, the Conversion Ready can
+       also be enabled to assert the ALERT pin. 
+       Reading the Alert Function Flag following an alert allows the user to determine if the Alert 
+       Function was the source of the Alert.
+       
+       When the Alert Latch Enable bit is set to Latch mode, the Alert Function Flag bit clears only when 
+       the Mask/Enable Register is read. 
+       When the Alert Latch Enable bit is set to Transparent mode, the Alert Function Flag bit is cleared 
+       following the next conversion that does not result in an Alert condition.
+    """    
     _conversion_ready_flag = ROBit(_REG_MASK_ENABLE, 3, 2, False)
+    """Bit to help coordinate one-shot or triggered conversion. This bit is set after all conversion, 
+       averaging, and multiplication are complete. Conversion Ready flag bit clears when writing the 
+       configuration register or reading the Mask/Enable register.
+    """
     math_overflow_flag = ROBit(_REG_MASK_ENABLE, 2, 2, False)
+    """This bit is set to 1 if an arithmetic operation resulted in an overflow error.
+    """
     alert_polarity_bit = RWBit(_REG_MASK_ENABLE, 1, 2, False)
-    alert_latch_enable = RWBit(_REG_MASK_ENABLE, 0, 2, False)    
+    """Active-high open collector when True, Active-low open collector when false (default).
+    """
+    alert_latch_enable = RWBit(_REG_MASK_ENABLE, 0, 2, False)
+    """Configures the latching feature of the ALERT pin and Alert Flag Bits.
+    """
 
     reset_bit = RWBit(_REG_CONFIG, 15, 2, False)
     """Setting this bit t 1 generates a system reset. Reset all registers to default values."""
@@ -201,13 +239,24 @@ class INA260:
     """
 
     mask_enable = RWBits(16, _REG_MASK_ENABLE, 0, 2, False)
+    """The Mask/Enable Register selects the function that is enabled to control the ALERT pin as well as 
+        how that pin functions. If multiple functions are enabled, the highest significant bit position 
+        Alert Function (D15-D11) takes priority and responds to the Alert Limit Register.
+    """
     alert_limit = RWBits(16, _REG_ALERT_LIMIT, 0, 2, False)
+    """The Alert Limit Register contains the value used to compare to the register selected in the 
+        Mask/Enable Register to determine if a limit has been exceeded. 
+        The format for this register will match the format of the register that is selected for comparison.
+    """
     
     TEXAS_INSTRUMENT_ID = const(0x5449)
     INA260_ID = const(0x227)
     _manufacturer_id = ROUnaryStruct(_REG_MFG_UID, ">H")
+    """Manufacturer identification bits"""
     _device_id = ROBits(12, _REG_DIE_UID, 4, 2, False)
+    """Device identification bits"""
     revision_id = ROBits(4, _REG_DIE_UID, 0, 2, False)
+    """Device revision identification bits"""
 
     @property
     def current(self):
