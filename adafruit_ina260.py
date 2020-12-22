@@ -208,7 +208,7 @@ class INA260:
        the Mask/Enable Register is read. 
        When the Alert Latch Enable bit is set to Transparent mode, the Alert Function Flag bit is cleared 
        following the next conversion that does not result in an Alert condition.
-    """    
+    """
     _conversion_ready_flag = ROBit(_REG_MASK_ENABLE, 3, 2, False)
     """Bit to help coordinate one-shot or triggered conversion. This bit is set after all conversion, 
        averaging, and multiplication are complete. Conversion Ready flag bit clears when writing the 
@@ -248,7 +248,7 @@ class INA260:
         Mask/Enable Register to determine if a limit has been exceeded. 
         The format for this register will match the format of the register that is selected for comparison.
     """
-    
+
     TEXAS_INSTRUMENT_ID = const(0x5449)
     INA260_ID = const(0x227)
     _manufacturer_id = ROUnaryStruct(_REG_MFG_UID, ">H")
