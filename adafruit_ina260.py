@@ -158,6 +158,16 @@ class INA260:
     def __init__(self, i2c_bus, address=0x40):
         self.i2c_device = i2cdevice.I2CDevice(i2c_bus, address)
 
+        if self._manufacturer_id != self.TEXAS_INSTRUMENT_ID:
+            raise RuntimeError(
+                "Failed to find Texas Instrument ID, read {} while expected {} - check your wiring!".format(self._manufacturer_id, self.TEXAS_INSTRUMENT_ID)
+            )
+            
+        if self._device_id != self.INA260_ID:
+            raise RuntimeError(
+                "Failed to find INA260 ID, read {} while expected {} - check your wiring!".format(self._device_id, self.INA260_ID)
+            )
+
     _raw_current = ROUnaryStruct(_REG_CURRENT, ">h")
     _raw_voltage = ROUnaryStruct(_REG_BUSVOLTAGE, ">H")
     _raw_power = ROUnaryStruct(_REG_POWER, ">H")
@@ -191,8 +201,10 @@ class INA260:
     mask_enable = RWBits(16, _REG_MASK_ENABLE, 0, 2, False)
     alert_limit = RWBits(16, _REG_ALERT_LIMIT, 0, 2, False)
     
-    manufacturer_id = ROUnaryStruct(_REG_MFG_UID, ">H")
-    device_id = ROBits(12, _REG_DIE_UID, 4, 2, False)
+    TEXAS_INSTRUMENT_ID = const(0x5449)
+    INA260_ID = const(0x227)
+    _manufacturer_id = ROUnaryStruct(_REG_MFG_UID, ">H")
+    _device_id = ROBits(12, _REG_DIE_UID, 4, 2, False)
     revision_id = ROBits(4, _REG_DIE_UID, 0, 2, False)
 
     @property
