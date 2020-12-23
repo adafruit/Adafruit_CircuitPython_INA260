@@ -96,6 +96,21 @@ class ConversionTime:
     TIME_4_156_ms = const(0x6)
     TIME_8_244_ms = const(0x7)
 
+    @staticmethod
+    def get_seconds(time_enum):
+        """Retrieve the time in seconds giving value read from register"""
+        conv_dict = {
+            0: 140e-6,
+            1: 204e-6,
+            2: 332e-6,
+            3: 558e-6,
+            4: 1.1e-3,
+            5: 2.116e-3,
+            6: 4.156e-3,
+            7: 8.244e-3,
+        }
+        return conv_dict[time_enum]
+
 
 class AveragingCount:
     """Options for ``averaging_count``
@@ -128,6 +143,12 @@ class AveragingCount:
     COUNT_256 = const(0x5)
     COUNT_512 = const(0x6)
     COUNT_1024 = const(0x7)
+
+    @staticmethod
+    def get_averaging_count(avg_count):
+        """Retrieve the number of measurements giving value read from register"""
+        conv_dict = {0: 1, 1: 4, 2: 16, 3: 64, 4: 128, 5: 256, 6: 512, 7: 1024}
+        return conv_dict[avg_count]
 
 
 # pylint: enable=too-few-public-methods
