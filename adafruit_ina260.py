@@ -27,8 +27,8 @@ from micropython import const
 import adafruit_bus_device.i2c_device as i2cdevice
 
 from adafruit_register.i2c_struct import ROUnaryStruct
-from adafruit_register.i2c_bits import RWBits
-from adafruit_register.i2c_bit import ROBit
+from adafruit_register.i2c_bits import ROBits, RWBits
+from adafruit_register.i2c_bit import ROBit, RWBit
 
 _REG_CONFIG = const(0x00)  # CONFIGURATION REGISTER (R/W)
 _REG_CURRENT = const(0x01)  # SHUNT VOLTAGE REGISTER (R)
