@@ -12,10 +12,9 @@ Implementation Notes
 **Hardware:**
 * `INA260 Breakout <https://www.adafruit.com/products/4226>`_
 **Software and Dependencies:**
-* Adafruit CircuitPython firmware for the supported boards:
-  https://github.com/adafruit/circuitpython/releases
- * Adafruit's Bus Device library: https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
- * Adafruit's Register library: https://github.com/adafruit/Adafruit_CircuitPython_Register
+* Adafruit CircuitPython firmware for the supported boards: https://github.com/adafruit/circuitpython/releases
+* Adafruit's Bus Device library: https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
+* Adafruit's Register library: https://github.com/adafruit/Adafruit_CircuitPython_Register
 """
 
 # imports
