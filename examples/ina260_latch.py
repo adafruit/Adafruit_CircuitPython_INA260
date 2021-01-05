@@ -3,7 +3,7 @@ import board
 from adafruit_ina260 import INA260, Mode, ConversionTime
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         i2c = board.I2C()
         ina260 = INA260(i2c)
@@ -33,7 +33,8 @@ if __name__ == '__main__':
                 % (ina260.current, ina260.voltage, ina260.power)
             )
 
-        # supposing meanwhile the alert limit was exceeded, setting an higher limit and clear the ALERT
+        # supposing meanwhile the alert limit was exceeded, setting an higher limit
+        # and clear the ALERT
         # 0x0100 x 1,25 mA = 320 mA as alert limit
         ina260.alert_limit = 0x0100
 
@@ -46,4 +47,8 @@ if __name__ == '__main__':
         # reset the whole chip and wait 2 sec
         ina260.reset_bit = True
         time.sleep(2)
-        print("MASK_REGISTER check, must be 0x0000 after reset: {}".format(ina260.mask_enable))
+        print(
+            "MASK_REGISTER check, must be 0x0000 after reset: {}".format(
+                ina260.mask_enable
+            )
+        )
