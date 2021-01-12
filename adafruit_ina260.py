@@ -1,24 +1,7 @@
-# The MIT License (MIT)
+# SPDX-FileCopyrightText: Bryan Siepert 2019 for Adafruit Industries
 #
-# Copyright (c) 2019 Bryan Siepert for Adafruit Industries
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# SPDX-License-Identifier: MIT
+
 """
 `adafruit_ina260`
 ================================================================================
@@ -69,20 +52,20 @@ _REG_DIE_UID = const(0xFF)  # DIE UNIQUE ID REGISTER (R)
 class Mode:
     """Modes avaible to be set
 
-        +--------------------+---------------------------------------------------------------------+
-        | Mode               | Description                                                         |
-        +====================+=====================================================================+
-        | ``Mode.CONTINUOUS``| Default: The sensor will continuously measure the bus voltage and   |
-        |                    | shunt voltage across the shunt resistor to calculate ``power`` and  |
-        |                    | ``current``                                                         |
-        +--------------------+---------------------------------------------------------------------+
-        | ``Mode.TRIGGERED`` | The sensor will immediately begin measuring and calculating current,|
-        |                    | bus voltage, and power. Re-set this mode to initiate another        |
-        |                    | measurement                                                         |
-        +--------------------+---------------------------------------------------------------------+
-        | ``Mode.SHUTDOWN``  |  Shutdown the sensor, reducing the quiescent current and turning off|
-        |                    |  current into the device inputs. Set another mode to re-enable      |
-        +--------------------+---------------------------------------------------------------------+
+    +--------------------+---------------------------------------------------------------------+
+    | Mode               | Description                                                         |
+    +====================+=====================================================================+
+    | ``Mode.CONTINUOUS``| Default: The sensor will continuously measure the bus voltage and   |
+    |                    | shunt voltage across the shunt resistor to calculate ``power`` and  |
+    |                    | ``current``                                                         |
+    +--------------------+---------------------------------------------------------------------+
+    | ``Mode.TRIGGERED`` | The sensor will immediately begin measuring and calculating current,|
+    |                    | bus voltage, and power. Re-set this mode to initiate another        |
+    |                    | measurement                                                         |
+    +--------------------+---------------------------------------------------------------------+
+    | ``Mode.SHUTDOWN``  |  Shutdown the sensor, reducing the quiescent current and turning off|
+    |                    |  current into the device inputs. Set another mode to re-enable      |
+    +--------------------+---------------------------------------------------------------------+
 
     """
 
@@ -94,25 +77,25 @@ class Mode:
 class ConversionTime:
     """Options for ``current_conversion_time`` or ``voltage_conversion_time``
 
-        +----------------------------------+------------------+
-        | ``ConversionTime``               | Time             |
-        +==================================+==================+
-        | ``ConversionTime.TIME_140_us``   | 140 us           |
-        +----------------------------------+------------------+
-        | ``ConversionTime.TIME_204_us``   | 204 us           |
-        +----------------------------------+------------------+
-        | ``ConversionTime.TIME_332_us``   | 332 us           |
-        +----------------------------------+------------------+
-        | ``ConversionTime.TIME_558_us``   | 588 us           |
-        +----------------------------------+------------------+
-        | ``ConversionTime.TIME_1_1_ms``   | 1.1 ms (Default) |
-        +----------------------------------+------------------+
-        | ``ConversionTime.TIME_2_116_ms`` | 2.116 ms         |
-        +----------------------------------+------------------+
-        | ``ConversionTime.TIME_4_156_ms`` | 4.156 ms         |
-        +----------------------------------+------------------+
-        | ``ConversionTime.TIME_8_244_ms`` | 8.244 ms         |
-        +----------------------------------+------------------+
+    +----------------------------------+------------------+
+    | ``ConversionTime``               | Time             |
+    +==================================+==================+
+    | ``ConversionTime.TIME_140_us``   | 140 us           |
+    +----------------------------------+------------------+
+    | ``ConversionTime.TIME_204_us``   | 204 us           |
+    +----------------------------------+------------------+
+    | ``ConversionTime.TIME_332_us``   | 332 us           |
+    +----------------------------------+------------------+
+    | ``ConversionTime.TIME_558_us``   | 588 us           |
+    +----------------------------------+------------------+
+    | ``ConversionTime.TIME_1_1_ms``   | 1.1 ms (Default) |
+    +----------------------------------+------------------+
+    | ``ConversionTime.TIME_2_116_ms`` | 2.116 ms         |
+    +----------------------------------+------------------+
+    | ``ConversionTime.TIME_4_156_ms`` | 4.156 ms         |
+    +----------------------------------+------------------+
+    | ``ConversionTime.TIME_8_244_ms`` | 8.244 ms         |
+    +----------------------------------+------------------+
 
     """
 
@@ -129,25 +112,25 @@ class ConversionTime:
 class AveragingCount:
     """Options for ``averaging_count``
 
-        +-------------------------------+------------------------------------+
-        | ``AveragingCount``            | Number of measurements to average  |
-        +===============================+====================================+
-        | ``AveragingCount.COUNT_1``    | 1 (Default)                        |
-        +-------------------------------+------------------------------------+
-        | ``AveragingCount.COUNT_4``    | 4                                  |
-        +-------------------------------+------------------------------------+
-        | ``AveragingCount.COUNT_16``   | 16                                 |
-        +-------------------------------+------------------------------------+
-        | ``AveragingCount.COUNT_64``   | 64                                 |
-        +-------------------------------+------------------------------------+
-        | ``AveragingCount.COUNT_128``  | 128                                |
-        +-------------------------------+------------------------------------+
-        | ``AveragingCount.COUNT_256``  | 256                                |
-        +-------------------------------+------------------------------------+
-        | ``AveragingCount.COUNT_512``  | 512                                |
-        +-------------------------------+------------------------------------+
-        | ``AveragingCount.COUNT_1024`` | 1024                               |
-        +-------------------------------+------------------------------------+
+    +-------------------------------+------------------------------------+
+    | ``AveragingCount``            | Number of measurements to average  |
+    +===============================+====================================+
+    | ``AveragingCount.COUNT_1``    | 1 (Default)                        |
+    +-------------------------------+------------------------------------+
+    | ``AveragingCount.COUNT_4``    | 4                                  |
+    +-------------------------------+------------------------------------+
+    | ``AveragingCount.COUNT_16``   | 16                                 |
+    +-------------------------------+------------------------------------+
+    | ``AveragingCount.COUNT_64``   | 64                                 |
+    +-------------------------------+------------------------------------+
+    | ``AveragingCount.COUNT_128``  | 128                                |
+    +-------------------------------+------------------------------------+
+    | ``AveragingCount.COUNT_256``  | 256                                |
+    +-------------------------------+------------------------------------+
+    | ``AveragingCount.COUNT_512``  | 512                                |
+    +-------------------------------+------------------------------------+
+    | ``AveragingCount.COUNT_1024`` | 1024                               |
+    +-------------------------------+------------------------------------+
 
     """
 
@@ -167,8 +150,8 @@ class AveragingCount:
 class INA260:
     """Driver for the INA260 power and current sensor.
 
-        :param ~busio.I2C i2c_bus: The I2C bus the INA260 is connected to.
-        :param address: The I2C device address for the sensor. Default is ``0x40``.
+    :param ~busio.I2C i2c_bus: The I2C bus the INA260 is connected to.
+    :param address: The I2C device address for the sensor. Default is ``0x40``.
 
     """
 
