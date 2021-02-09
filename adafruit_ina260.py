@@ -43,6 +43,7 @@ _REG_DIE_UID = const(0xFF)  # DIE UNIQUE ID REGISTER (R)
 # pylint: disable=too-few-public-methods
 class Mode:
     """Modes avaible to be set
+
     +--------------------+---------------------------------------------------------------------+
     | Mode               | Description                                                         |
     +====================+=====================================================================+
@@ -57,6 +58,7 @@ class Mode:
     | ``Mode.SHUTDOWN``  |  Shutdown the sensor, reducing the quiescent current and turning off|
     |                    |  current into the device inputs. Set another mode to re-enable      |
     +--------------------+---------------------------------------------------------------------+
+
     """
 
     SHUTDOWN = const(0x0)
@@ -66,6 +68,7 @@ class Mode:
 
 class ConversionTime:
     """Options for ``current_conversion_time`` or ``voltage_conversion_time``
+
     +----------------------------------+------------------+
     | ``ConversionTime``               | Time             |
     +==================================+==================+
@@ -85,6 +88,7 @@ class ConversionTime:
     +----------------------------------+------------------+
     | ``ConversionTime.TIME_8_244_ms`` | 8.244 ms         |
     +----------------------------------+------------------+
+
     """
 
     TIME_140_us = const(0x0)
@@ -114,6 +118,7 @@ class ConversionTime:
 
 class AveragingCount:
     """Options for ``averaging_count``
+
     +-------------------------------+------------------------------------+
     | ``AveragingCount``            | Number of measurements to average  |
     +===============================+====================================+
@@ -133,6 +138,7 @@ class AveragingCount:
     +-------------------------------+------------------------------------+
     | ``AveragingCount.COUNT_1024`` | 1024                               |
     +-------------------------------+------------------------------------+
+
     """
 
     COUNT_1 = const(0x0)
@@ -156,8 +162,10 @@ class AveragingCount:
 
 class INA260:
     """Driver for the INA260 power and current sensor.
+
     :param ~busio.I2C i2c_bus: The I2C bus the INA260 is connected to.
     :param address: The I2C device address for the sensor. Default is ``0x40``.
+
     """
 
     def __init__(self, i2c_bus, address=0x40):
