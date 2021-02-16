@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: Gabriele Pongelli 2021 for Adafruit Industries
+#
+# SPDX-License-Identifier: MIT
+
 import time
 import board
 from adafruit_ina260 import INA260, Mode, ConversionTime
