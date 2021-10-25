@@ -70,6 +70,11 @@ Usage Example
             %(ina260.current, ina260.voltage, ina260.power))
         time.sleep(1)
 
+Documentation
+=============
+
+API documentation for this library can be found on `Read the Docs <https://circuitpython.readthedocs.io/projects/ina260/en/latest/>`_.
+
 Contributing
 ============
 
