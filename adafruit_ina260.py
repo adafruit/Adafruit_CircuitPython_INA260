@@ -78,7 +78,7 @@ class ConversionTime:
     +----------------------------------+------------------+
     | ``ConversionTime.TIME_332_us``   | 332 us           |
     +----------------------------------+------------------+
-    | ``ConversionTime.TIME_558_us``   | 588 us           |
+    | ``ConversionTime.TIME_588_us``   | 588 us           |
     +----------------------------------+------------------+
     | ``ConversionTime.TIME_1_1_ms``   | 1.1 ms (Default) |
     +----------------------------------+------------------+
@@ -94,7 +94,7 @@ class ConversionTime:
     TIME_140_us = const(0x0)
     TIME_204_us = const(0x1)
     TIME_332_us = const(0x2)
-    TIME_558_us = const(0x3)
+    TIME_588_us = const(0x3)
     TIME_1_1_ms = const(0x4)
     TIME_2_116_ms = const(0x5)
     TIME_4_156_ms = const(0x6)
@@ -107,7 +107,7 @@ class ConversionTime:
             0: 140e-6,
             1: 204e-6,
             2: 332e-6,
-            3: 558e-6,
+            3: 588e-6,
             4: 1.1e-3,
             5: 2.116e-3,
             6: 4.156e-3,
