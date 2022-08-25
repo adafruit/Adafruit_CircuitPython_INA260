@@ -19,6 +19,7 @@ Implementation Notes
 """
 
 # imports
+import board
 
 try:
     from board import I2C
@@ -173,7 +174,7 @@ class INA260:
 
     """
 
-    def __init__(self, i2c_bus: I2C(), address: int = 0x40) -> None:
+    def __init__(self, i2c_bus: board.I2C(), address: int = 0x40) -> None:
         self.i2c_device = i2cdevice.I2CDevice(i2c_bus, address)
 
         if self._manufacturer_id != self.TEXAS_INSTRUMENT_ID:
