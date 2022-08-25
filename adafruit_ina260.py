@@ -178,7 +178,8 @@ class INA260:
 
         if self._manufacturer_id != self.TEXAS_INSTRUMENT_ID:
             raise RuntimeError(
-                f"Failed to find Texas Instrument ID, read {self._manufacturer_id} while expected {self.TEXAS_INSTRUMENT_ID}"
+                f"Failed to find Texas Instrument ID, read {self._manufacturer_id} while expected "
+                f"{self.TEXAS_INSTRUMENT_ID}"
                 " - check your wiring!"
             )
 
