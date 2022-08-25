@@ -22,7 +22,7 @@ Implementation Notes
 
 try:
     import typing  # pylint: disable=unused-import
-    from board import I2C
+    from busio import I2C
 except ImportError:
     pass
 
@@ -170,11 +170,11 @@ class INA260:
     """Driver for the INA260 power and current sensor.
 
     :param ~busio.I2C i2c_bus: The I2C bus the INA260 is connected to.
-    :param address int: The I2C device address for the sensor. Default is ``0x40``.
+    :param int address: The I2C device address for the sensor. Default is ``0x40``.
 
     """
 
-    def __init__(self, i2c_bus: board.I2C, address: int = 0x40) -> None:
+    def __init__(self, i2c_bus: I2C, address: int = 0x40) -> None:
         self.i2c_device = i2cdevice.I2CDevice(i2c_bus, address)
 
         if self._manufacturer_id != self.TEXAS_INSTRUMENT_ID:
