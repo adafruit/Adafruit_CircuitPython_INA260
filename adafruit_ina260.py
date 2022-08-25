@@ -21,7 +21,7 @@ Implementation Notes
 # imports
 
 try:
-	from board import I2C
+    from board import I2C
 except ImportError:
     pass
 
