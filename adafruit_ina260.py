@@ -20,6 +20,12 @@ Implementation Notes
 
 # imports
 
+try:
+    import typing  # pylint: disable=unused-import
+    from busio import I2C
+except ImportError:
+    pass
+
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_INA260.git"
 
@@ -101,7 +107,7 @@ class ConversionTime:
     TIME_8_244_ms = const(0x7)
 
     @staticmethod
-    def get_seconds(time_enum):
+    def get_seconds(time_enum: int) -> float:
         """Retrieve the time in seconds giving value read from register"""
         conv_dict = {
             0: 140e-6,
@@ -151,7 +157,7 @@ class AveragingCount:
     COUNT_1024 = const(0x7)
 
     @staticmethod
-    def get_averaging_count(avg_count):
+    def get_averaging_count(avg_count: int) -> float:
         """Retrieve the number of measurements giving value read from register"""
         conv_dict = {0: 1, 1: 4, 2: 16, 3: 64, 4: 128, 5: 256, 6: 512, 7: 1024}
         return conv_dict[avg_count]
@@ -164,25 +170,24 @@ class INA260:
     """Driver for the INA260 power and current sensor.
 
     :param ~busio.I2C i2c_bus: The I2C bus the INA260 is connected to.
-    :param address: The I2C device address for the sensor. Default is ``0x40``.
+    :param int address: The I2C device address for the sensor. Default is ``0x40``.
 
     """
 
-    def __init__(self, i2c_bus, address=0x40):
+    def __init__(self, i2c_bus: I2C, address: int = 0x40) -> None:
         self.i2c_device = i2cdevice.I2CDevice(i2c_bus, address)
 
         if self._manufacturer_id != self.TEXAS_INSTRUMENT_ID:
             raise RuntimeError(
-                "Failed to find Texas Instrument ID, read {} while expected {}"
-                " - check your wiring!".format(
-                    self._manufacturer_id, self.TEXAS_INSTRUMENT_ID
-                )
+                "Failed to find Texas Instrument ID, read "
+                + f"{self._manufacturer_id} while expected {self.TEXAS_INSTRUMENT_ID}"
+                " - check your wiring!"
             )
 
         if self._device_id != self.INA260_ID:
             raise RuntimeError(
-                "Failed to find INA260 ID, read {} while expected {}"
-                " - check your wiring!".format(self._device_id, self.INA260_ID)
+                "Failed to find INA260 ID, read {self._device_id} while expected {self.INA260_ID}"
+                " - check your wiring!"
             )
 
     _raw_current = ROUnaryStruct(_REG_CURRENT, ">h")
@@ -280,7 +285,7 @@ class INA260:
     """Device revision identification bits"""
 
     @property
-    def current(self):
+    def current(self) -> float:
         """The current (between V+ and V-) in mA"""
         if self.mode == Mode.TRIGGERED:
             while self._conversion_ready_flag == 0:
@@ -288,7 +293,7 @@ class INA260:
         return self._raw_current * 1.25
 
     @property
-    def voltage(self):
+    def voltage(self) -> float:
         """The bus voltage in V"""
         if self.mode == Mode.TRIGGERED:
             while self._conversion_ready_flag == 0:
@@ -296,7 +301,7 @@ class INA260:
         return self._raw_voltage * 0.00125
 
     @property
-    def power(self):
+    def power(self) -> int:
         """The power being delivered to the load in mW"""
         if self.mode == Mode.TRIGGERED:
             while self._conversion_ready_flag == 0:
