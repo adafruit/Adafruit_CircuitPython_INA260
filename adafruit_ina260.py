@@ -186,7 +186,7 @@ class INA260:
 
         if self._device_id != self.INA260_ID:
             raise RuntimeError(
-                "Failed to find INA260 ID, read {self._device_id} while expected {self.INA260_ID}"
+                f"Failed to find INA260 ID, read {self._device_id} while expected {self.INA260_ID}"
                 " - check your wiring!"
             )
 
