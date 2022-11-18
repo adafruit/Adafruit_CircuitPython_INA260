@@ -9,7 +9,8 @@ from adafruit_ina260 import INA260, Mode, ConversionTime
 
 if __name__ == "__main__":
     try:
-        i2c = board.I2C()
+        i2c = board.I2C()  # uses board.SCL and board.SDA
+        # i2c = board.STEMMA_I2C()  # For using the built-in STEMMA QT connector
         ina260 = INA260(i2c)
     except RuntimeError as r_e:
         # catch exception on init, no INA260 chip found

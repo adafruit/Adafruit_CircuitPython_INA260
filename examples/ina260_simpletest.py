@@ -5,7 +5,8 @@ import time
 import board
 import adafruit_ina260
 
-i2c = board.I2C()
+i2c = board.I2C()  # uses board.SCL and board.SDA
+# i2c = board.STEMMA_I2C()  # For using the built-in STEMMA QT connector on a microcontroller
 ina260 = adafruit_ina260.INA260(i2c)
 while True:
     print(
