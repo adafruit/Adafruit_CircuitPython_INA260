@@ -34,8 +34,9 @@ if __name__ == "__main__":
     for _ in enumerate(range(5)):
         time.sleep(ConversionTime.get_seconds(ina260.current_conversion_time))
         print(
-            "Current: %.2f mA Voltage: %.2f V Power:%.2f mW"
-            % (ina260.current, ina260.voltage, ina260.power)
+            f"Current: {ina260.current:.2f} mA, "
+            f"Voltage: {ina260.voltage:.2f} V, "
+            f"Power: {ina260.power:.2f} mW"
         )
 
     # supposing meanwhile the alert limit was exceeded, setting an higher limit
@@ -44,14 +45,12 @@ if __name__ == "__main__":
     ina260.alert_limit = 0x0100
 
     # alert function flag bit should be true if alert threshold was exceeded
-    print("Alert function flag: {}".format(ina260.alert_function_flag))
+    print("Alert function flag: ", ina260.alert_function_flag)
 
     # in latch mode, reading the register clears the ALERT & alert function flag
-    print("MASK register: {}".format(ina260.mask_enable))
+    print("MASK register:", ina260.mask_enable)
 
     # reset the whole chip and wait 2 sec
     ina260.reset_bit = True
     time.sleep(2)
-    print(
-        "MASK_REGISTER check, must be 0x0000 after reset: {}".format(ina260.mask_enable)
-    )
+    print("MASK_REGISTER check, must be 0x0000 after reset:", ina260.mask_enable)
