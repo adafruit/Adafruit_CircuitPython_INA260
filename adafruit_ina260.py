@@ -21,7 +21,8 @@ Implementation Notes
 # imports
 
 try:
-    import typing  # pylint: disable=unused-import
+    import typing
+
     from busio import I2C
 except ImportError:
     pass
@@ -29,12 +30,11 @@ except ImportError:
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_INA260.git"
 
-from micropython import const
 import adafruit_bus_device.i2c_device as i2cdevice
-
-from adafruit_register.i2c_struct import ROUnaryStruct
-from adafruit_register.i2c_bits import ROBits, RWBits
 from adafruit_register.i2c_bit import ROBit, RWBit
+from adafruit_register.i2c_bits import ROBits, RWBits
+from adafruit_register.i2c_struct import ROUnaryStruct
+from micropython import const
 
 _REG_CONFIG = const(0x00)  # CONFIGURATION REGISTER (R/W)
 _REG_CURRENT = const(0x01)  # SHUNT VOLTAGE REGISTER (R)
@@ -46,7 +46,6 @@ _REG_MFG_UID = const(0xFE)  # MANUFACTURER UNIQUE ID REGISTER (R)
 _REG_DIE_UID = const(0xFF)  # DIE UNIQUE ID REGISTER (R)
 
 
-# pylint: disable=too-few-public-methods
 class Mode:
     """Modes avaible to be set
 
@@ -161,9 +160,6 @@ class AveragingCount:
         """Retrieve the number of measurements giving value read from register"""
         conv_dict = {0: 1, 1: 4, 2: 16, 3: 64, 4: 128, 5: 256, 6: 512, 7: 1024}
         return conv_dict[avg_count]
-
-
-# pylint: enable=too-few-public-methods
 
 
 class INA260:

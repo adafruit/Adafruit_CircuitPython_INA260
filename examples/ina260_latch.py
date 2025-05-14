@@ -3,9 +3,10 @@
 # SPDX-License-Identifier: MIT
 
 import time
-import board
-from adafruit_ina260 import INA260, Mode, ConversionTime
 
+import board
+
+from adafruit_ina260 import INA260, ConversionTime, Mode
 
 if __name__ == "__main__":
     try:
