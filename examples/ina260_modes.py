@@ -2,7 +2,9 @@
 # SPDX-License-Identifier: MIT
 
 import time
+
 import board
+
 from adafruit_ina260 import INA260, Mode
 
 i2c = board.I2C()  # uses board.SCL and board.SDA
